@@ -150,7 +150,7 @@ function downloadLiveBroadcast()
 
     if [ "$mac" == "" ]
     then
-        $terminal -x sh -c "$rtmp -v -o ./videos/${user_name}/${filename} -r rtmp://$host$app/$stream; bash;exit" &
+        xterm -e "$rtmp -v -o ./videos/${user_name}/${filename} -r rtmp://$host$app/$stream; bash;exit" &
     else
         echo "cd `pwd` ; rtmpdump -v -o ./videos/${user_name}/${filename} -r rtmp://$host$app/$stream" > "./_temp/${filename}.command"
         chmod +x "./_temp/${filename}.command"
@@ -297,9 +297,9 @@ function downloadVideo()
     if [ "$mac" == "" ] 
     then
         if [[ "$hls" != "" ]]; then
-            $terminal "ffmpeg -i \"$hls\"  -c:v copy \"./videos/${user_name}/${file_name}\" ;bash;exit" & 
+            xterm -e "ffmpeg -i \"$hls\"  -c:v copy \"./videos/${user_name}/${file_name}\" ;bash;exit" & 
         else
-            $terminal -x sh -c "$rtmp -v -o \"./videos/${user_name}/${file_name}\" -r \"$server$stream?sessionId=$session\" -p \"http://www.younow.com/\";bash;exit" &
+            xterm -e "$rtmp -v -o \"./videos/${user_name}/${file_name}\" -r \"$server$stream?sessionId=$session\" -p \"http://www.younow.com/\";bash;exit" &
         fi
     else
         if [[ "$hls" != "" ]]; then
@@ -343,11 +343,6 @@ if [ "$mac" == "" ]
 then
    # using wine to run an old version since the latest doesn't work with younow
    rtmp="wine ./_bin/rtmpdump.exe"
-
-   # get the name of the currently running terminal emulator
-   pid=`ps -p $$ -o ppid=`
-   ppid=`ps -o ppid= $pid`
-   terminal=`ps -p $ppid o args=`
 fi
 
 # Locations for working files and final videos
