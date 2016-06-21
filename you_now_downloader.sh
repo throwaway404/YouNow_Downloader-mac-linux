@@ -269,12 +269,13 @@ function downloadVideo()
     mkdir -p "./_temp/${dirr}"
     mkdir -p "./videos/${user_name}"
 
-    wget --no-check-certificate -q "http://www.younow.com/php/api/younow/user" -O "./_temp/${dirr}/session.txt"
-    wget --no-check-certificate -q "http://www.younow.com/php/api/broadcast/videoPath/broadcastId=${broadcast_id}" -O "./_temp/${dirr}/rtmp.txt"
-    local session=`xidel -q ./_temp/${dirr}/rtmp.txt -e '$json("session")'`
-    local server=`xidel -q ./_temp/${dirr}/rtmp.txt -e '$json("server")'`
-    local stream=`xidel -q ./_temp/${dirr}/rtmp.txt -e '$json("stream")'`
-    local hls=`xidel -q ./_temp/${dirr}/rtmp.txt -e '$json("hls")'`
+    wget --no-check-certificate -q "http://www.younow.com/php/api/younow/user" -O "./_temp/${dirr}/session.json"
+    wget --no-check-certificate -q "http://www.younow.com/php/api/broadcast/videoPath/broadcastId=${broadcast_id}" -O "./_temp/${dirr}/rtmp.json"
+    
+    local session=`xidel -q ./_temp/${dirr}/rtmp.json -e '$json("session")'`
+    local server=`xidel -q ./_temp/${dirr}/rtmp.json -e '$json("server")'`
+    local stream=`xidel -q ./_temp/${dirr}/rtmp.json -e '$json("stream")'`
+    local hls=`xidel -q ./_temp/${dirr}/rtmp.json -e '$json("hls")'`
 
     if $verbose ; then
         echo "--- stream information ---"
@@ -357,5 +358,5 @@ mainProgramLoop
 echo "Thanks for using the downloader tool. Have a nice day."
 
 # clean up all the temp files.
-rm -rf ./_temp/* 2>/dev/null 
+#rm -rf ./_temp/* 2>/dev/null 
 ###############################################################
