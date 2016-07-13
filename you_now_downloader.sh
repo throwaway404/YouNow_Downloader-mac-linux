@@ -92,14 +92,14 @@ function userDownloadMenu()
         local error=`xidel -q ./_temp/${user_name}.json -e '$json("errorCode")'`
         local errorMsg=`xidel -q ./_temp/${user_name}.json -e '$json("errorMsg")'`
 
-        if [ "${error}" -eq 101 ]
+        if [ "${error}" == "101" ]
         then
             echo "There was a problem with the provided user name."
             echo "    Error: $errorMsg"
             echo " "
             return
 
-        elif [ "${error}" -eq 0 ]; then
+        elif [ "${error}" == "0" ]; then
             echo "[LIVE] ${user_name} is broadcasting now!"
             echo "What would you like to do: Capture (L)ive Broadcast, download past (B)roadcasts, or download a (M)oment? (L / B / M)"
 
