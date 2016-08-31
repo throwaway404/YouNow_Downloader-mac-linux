@@ -86,7 +86,7 @@ function userDownloadMenu()
 
     while : ; do
         echo " "
-        wget --no-check-certificate -q "http://www.younow.com/php/api/broadcast/info/user=${user_name}" -O "./_temp/${user_name}.json"
+        wget --no-check-certificate -q "http://bcm.younow.com/broadcast/info/user=${user_name}" -O "./_temp/${user_name}.json"
 
         local user_id=`xidel -q ./_temp/${user_name}.json -e '$json("userId")'`
         local error=`xidel -q ./_temp/${user_name}.json -e '$json("errorCode")'`
